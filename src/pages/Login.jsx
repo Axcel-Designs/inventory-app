@@ -1,7 +1,7 @@
-import React from 'react'
+import ProductForm from "../components/ProductForm";
 
 export default function Login() {
   return (
-    <div>Login</div>
+    <main><ProductForm/></main>
   )
 }

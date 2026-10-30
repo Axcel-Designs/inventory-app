@@ -38,7 +38,7 @@ export default function LoginForm({ onSubmit, onForgotPassword }) {
       });
       navigate("/dashboard");
     } catch (err) {
-      setError(err.message || "Invalid email or password.");
+      setError("Please use google login." || "Invalid email or password.");
     } finally {
       setLoading(false);
     }

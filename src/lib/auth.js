@@ -34,6 +34,11 @@ export function loginWithGoogle() {
   return signInWithPopup(auth, googleProvider);
 }
 
+export function loginWithGoogleRedirect() {
+  return signInWithRedirect(auth, googleProvider);
+}
+
+
 // Sign out
 export function logout() {
   return signOut(auth);

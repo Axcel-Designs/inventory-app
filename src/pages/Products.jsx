@@ -204,7 +204,7 @@ export default function Products() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[850px] text-left text-sm">
+            <table className="w-full min-w-212.5 text-left text-sm">
               <thead className="bg-white text-xs uppercase tracking-wider text-[#605850]">
                 <tr>
                   <th className="px-4 py-3">Product Name</th>

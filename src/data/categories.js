@@ -1,3 +1,44 @@
+import {
+  FiAlertCircle,
+  FiBarChart2,
+  FiCheckCircle,
+  FiLayers,
+
+} from "react-icons/fi";
+
+export const stats = [
+  {
+    label: "Total Active Categories",
+    value: "18",
+    detail: "3 added Q2",
+    icon: FiLayers,
+    progress: 82,
+  },
+  {
+    label: "Uncategorized SKUs",
+    value: "0",
+    detail: "All classified",
+    icon: FiCheckCircle,
+    accent: "text-[#8c3c3c]",
+  },
+  {
+    label: "Critical Stock Alerts",
+    value: "18",
+    detail: "Across 4 categories",
+    icon: FiAlertCircle,
+    accent: "text-[#c0392b]",
+  },
+  {
+    label: "Total Asset Valuation",
+    value: "$4,524,800",
+    detail: "+8.4% YoY",
+    icon: FiBarChart2,
+    accent: "text-[#8c3c3c]",
+  },
+];
+
+
+
 export const categories = [
   {
     name: "Industrial Hardware & Fasteners", code: "CAT-0911", skus: "1,420", valuation: "$432,650",

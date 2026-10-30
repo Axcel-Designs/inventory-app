@@ -1,21 +1,13 @@
 import { NavLink } from "react-router";
-import {
-  FiBarChart2,
-  FiBox,
-  FiGrid,
-  FiLayers,
-  FiSettings,
-  FiWarehouse,
-  FiX,
-} from "react-icons/fi";
+import { FiBox, FiGrid, FiLayers, FiX } from "react-icons/fi";
+import { logout } from "../lib/auth";
 
 const links = [
-  { label: "Dashboard", icon: FiGrid, path: "/" },
+  { label: "Dashboard", icon: FiGrid, path: "/dashboard" },
   { label: "Products", icon: FiBox, path: "/products" },
   { label: "Categories", icon: FiLayers, path: "/categories" },
-  { label: "Warehouses", icon: FiWarehouse, path: "/warehouses" },
-  { label: "Reports", icon: FiBarChart2, path: "/reports" },
-  { label: "Settings", icon: FiSettings, path: "/settings" },
+  // { label: "Reports", icon: FiBarChart2, path: "/reports" },
+  // { label: "Settings", icon: FiSettings, path: "/settings" },
 ];
 
 export default function Sidebar({ open = false, onClose }) {
@@ -64,12 +56,8 @@ export default function Sidebar({ open = false, onClose }) {
           </nav>
         </div>
 
-        <div className="rounded-xl bg-white p-4">
-          <div className="mb-1 flex justify-between text-[11px] font-bold tracking-wider text-[#605850]">
-            <span>SYNC STATUS</span>
-            <span className="text-[#8c3c3c]">OK</span>
-          </div>
-          <p className="text-xs text-[#3a302a]">v2.4.1 Node-Cluster</p>
+        <div className="rounded-xl bg-white p-4 mb-1 flex justify-between text-[11px] font-bold tracking-wider text-red-600">
+          <button onClick={() => logout()}>sign out</button>
         </div>
       </aside>
     </>

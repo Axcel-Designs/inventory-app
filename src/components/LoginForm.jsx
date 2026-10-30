@@ -9,6 +9,7 @@ import {
   FiLoader,
 } from "react-icons/fi";
 import { useNavigate } from "react-router";
+import { loginWithGoogle } from "../lib/auth";
 
 export default function LoginForm({ onSubmit, onForgotPassword }) {
   const navigate = useNavigate();
@@ -30,17 +31,45 @@ export default function LoginForm({ onSubmit, onForgotPassword }) {
 
     try {
       setLoading(true);
-
       await onSubmit({
         email,
         password,
         rememberMe,
       });
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Invalid email or password.");
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function loginGoogle() {
+    try {
+      setLoading(true);
+      setError("");
+      await loginWithGoogle();
       navigate("/dashboard");
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+      if (err.code === "auth/popup-closed-by-user") {
+        // User closed the popup, do nothing
+      } else if (err.code === "auth/unauthorized-domain") {
+        setError(
+          "This domain (localhost) is not authorized in Firebase Console (Authentication > Settings > Authorized Domains)."
+        );
+      } else if (
+        err.code === "auth/configuration-not-found" ||
+        err.code === "auth/operation-not-allowed"
+      ) {
+        setError(
+          "Google Sign-In is not enabled in Firebase Console (Authentication > Sign-in method)."
+        );
+      } else {
+        setError(err.message || "Failed to sign in with Google.");
+      }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -78,7 +107,7 @@ export default function LoginForm({ onSubmit, onForgotPassword }) {
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
                 required
-                className="h-full w-full bg-transparent text-sm text-[#3a302a] outline-none placeholder:text-[#b5aaa0"
+                className="h-full w-full bg-transparent text-sm text-[#3a302a] outline-none placeholder:text-[#b5aaa0]"
               />
             </div>
           </div>
@@ -182,8 +211,9 @@ export default function LoginForm({ onSubmit, onForgotPassword }) {
         <div className="grid grid-col gap-2.5">
           <button
             type="button"
-            onClick={() => console.log("Google login")}
-            className="h-10 px-3 rounded-lg bg-[#f0e9e0] hover:bg-[#e8ded2] text-[#3a302a] text-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition-colors"
+            disabled={loading}
+            onClick={loginGoogle}
+            className="h-10 px-3 rounded-lg bg-[#f0e9e0] hover:bg-[#e8ded2] text-[#3a302a] text-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition-colors disabled:opacity-60"
           >
             <FaGoogle className="w-4 h-4 shrink-0" />
             <span className="truncate">Google</span>
